@@ -78,7 +78,7 @@ DWORD null  = 0;
 		  VirtualProtect(EvilFunctionPointer,0x3,PAGE_READWRITE,&null);      
 		  memcpy(EvilFunctionPointer,stacksetup,0x3);                              
 		  VirtualProtect(EvilFunctionPointer,0x3,PAGE_EXECUTE_READ,&null);   
-		  DWORD jumptoloc = EvilFunctionPointer + 0x24; //1e                       
+		  DWORD jumptoloc = EvilFunctionPointer + 0x24;                       
 		  DWORD jumplength = MessageBoxAddress + 0x5;                              
 		  DWORD distance = jumplength - jumptoloc - 0x5;
 		  VirtualProtect(jumptoloc,0x8,PAGE_READWRITE,&null);         

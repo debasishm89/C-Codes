@@ -1,4 +1,13 @@
 #include <windows.h>
+
+/*
+
+http://www.debasish.in/2013/09/inline-api-hooking-using-dll-injection.html
+
+
+*/
+
+
 __declspec(naked) EvilFunction()
 {
           /*

